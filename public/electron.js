@@ -10,8 +10,12 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600
+    width: 1200,
+    height: 800,
+    icon: __dirname + './favicon.png',
+    webPreferences: {
+      webSecurity: false
+    }
   })
 
   // and load the index.html of the app.
