@@ -1,26 +1,33 @@
 import React from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
 import './App.css'
+import Main from './containers/main/Main'
 
-function App() {
-  fetch('https://192.168.0.1', {
-    method: 'get'
-  }).then(response => response.text()).then(text => console.log(text)).catch(e => console.log(e))
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <nav className="nav">
+          <ul>
+            <li>
+              <Link className="link" to="/">Home</Link>
+            </li>
+          </ul>
+        </nav>
+        <section className="body">
+          <Switch>
+            <Route path="/">
+              <Main />
+            </Route>
+          </Switch>
+        </section>
+      </div>
+    </Router>
   );
 }
 
