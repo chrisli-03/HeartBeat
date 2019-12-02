@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { addBeat } from '../../store/beat/actions'
-import Main from '../../components/main/Main'
+import BeatList from '../../components/main/BeatList'
 
 const mapStateToProps = state => ({
   beats: state.beats
@@ -12,5 +12,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(Main)
+  mapDispatchToProps
+)(BeatList)

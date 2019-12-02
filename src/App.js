@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,23 +6,40 @@ import {
   Link
 } from 'react-router-dom'
 import './App.css'
-import Main from './containers/main/Main'
+import BeatList from './containers/main/BeatList'
+import { Menu, Icon } from 'antd'
 
 const App = () => {
+  const [current, setCurrent] = useState('1')
+  const [width, setWidth] = useState(50)
+
+  const handleClick = e => {
+    setCurrent(e.key)
+  }
   return (
     <Router>
       <div className="App">
-        <nav className="nav">
-          <ul>
-            <li>
-              <Link className="link" to="/">Home</Link>
-            </li>
-          </ul>
-        </nav>
+        <Menu
+          className="nav"
+          theme="light"
+          onClick={handleClick}
+          onMouseEnter={() => setWidth(128)}
+          onMouseLeave={() => setWidth(50)}
+          style={{ width: width }}
+          selectedKeys={[current]}
+          mode="inline"
+        >
+          <Menu.Item key="1">
+            <Link to="/">
+              <Icon type="heart" theme="twoTone" twoToneColor="#eb2f96" />
+              Beats
+            </Link>
+          </Menu.Item>
+        </Menu>
         <section className="body">
           <Switch>
             <Route path="/">
-              <Main />
+              <BeatList />
             </Route>
           </Switch>
         </section>

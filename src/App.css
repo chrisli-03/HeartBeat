@@ -4,23 +4,40 @@
   display: flex;
 }
 
-.nav {
-  height: 100%;
-  border-right: 1px solid #000;
-  overflow-y: auto;
-}
-
-.nav ul {
-  padding: 10px;
-  margin: 0;
-  list-style: none;
-}
-
-.nav .link {
-  color: #000;
-  text-decoration: none;
+.App .nav {
+  padding: 10px 0;
 }
 
 .body {
   padding: 10px;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main .box {
+  display: flex;
+  width: 200px;
+  height: 100px;
+  border: 1px solid #1890ff;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  color: #1890ff;
+  text-decoration: none;
+  margin: 3px;
+  transition: all 0.4s;
+}
+
+.main .box.add {
+  border-color: #52c41a;
+  color: #52c41a;
+}
+
+.main .box.add:hover {
+  border-color: #95de64;
+  color: #95de64;
 }
