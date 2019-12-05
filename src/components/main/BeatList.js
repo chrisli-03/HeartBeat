@@ -2,8 +2,9 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Icon } from 'antd'
 import BeatModal from './BeatModal'
+import Beat from './Beat'
 
-const BeatList = ({ beats, addBeat, editBeat }) => {
+const BeatList = ({ beats, addBeat, editBeat, deleteBeat }) => {
   const [visible, setVisible] = useState(false)
   const [formRef, setFormRef] = useState(null)
   const [selectedBeat, setSelectedBeat] = useState(null)
@@ -40,10 +41,13 @@ const BeatList = ({ beats, addBeat, editBeat }) => {
         visible={visible}
         onCancel={() => changeModel(false)}
         onCreate={handleCreate}
+        onDelete={() => { deleteBeat(selectedBeat); changeModel(false) }}
         beat={selectedBeat}
       />
       {beats.map((beat, i) => (
-        <Button className="box" key={i} onClick={() => { setSelectedBeat(beat); changeModel(true) }}>{beat.beatName}</Button>
+        <Button className="box" key={i} onClick={() => { setSelectedBeat(beat); changeModel(true) }}>
+          <Beat beat={beat} />
+        </Button>
       ))}
       <Button className="box add" onClick={() => { setSelectedBeat(null); changeModel(true) }}>
         <Icon type="form" />
@@ -59,7 +63,10 @@ BeatList.propTypes = {
       ip: PropTypes.string.required,
       bpm: PropTypes.number.required
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  addBeat: PropTypes.func.isRequired,
+  editBeat: PropTypes.func.isRequired,
+  deleteBeat: PropTypes.func.isRequired
 }
 
 export default BeatList

@@ -1,4 +1,4 @@
-import { ADD_BEAT, EDIT_BEAT } from './actions.js'
+import { ADD_BEAT, EDIT_BEAT, DELETE_BEAT } from './actions.js'
 
 export function beatReducers(state = [], action) {
   switch(action.type) {
@@ -15,6 +15,8 @@ export function beatReducers(state = [], action) {
           return n
         }
       })
+    case DELETE_BEAT:
+      return state.filter(n => n !== action.payload)
     default:
       return state
   }
