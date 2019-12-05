@@ -32,6 +32,11 @@
   transition: all 0.4s;
 }
 
+.main .box:hover {
+  border-color: #69c0ff;
+  color: #69c0ff;
+}
+
 .main .box.add {
   border-color: #52c41a;
   color: #52c41a;

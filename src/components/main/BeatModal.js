@@ -17,18 +17,21 @@ const BeatModel = Form.create({ name: 'form_in_modal' })(
         <Form layout="vertical">
           <Form.Item label="Beat Name">
             {getFieldDecorator('beatName', {
-              rules: [{ required: true, message: 'Please input the name of beat.' }],
+              initialValue: beat ? beat.beatName : '' ,
+              rules: [{ required: true, message: 'Please input the name of beat.' }]
             })(<Input />)}
           </Form.Item>
           <Form.Item label="IP">
             {getFieldDecorator('ip', {
-              rules: [{ required: true, message: 'Please input the ip of beat.' }],
+              initialValue: beat ? beat.ip : '',
+              rules: [{ required: true, message: 'Please input the ip of beat.' }]
             })(<Input />)}
           </Form.Item>
           <Form.Item label="Beat Per Minute">
             {getFieldDecorator('bpm', {
-              rules: [{ required: true, message: 'Please input the beat per minute' }],
-            })(<InputNumber />)}
+              initialValue: beat ? beat.bpm : '',
+              rules: [{ required: true, message: 'Please input beat per minute' }]
+            })(<Input />)}
           </Form.Item>
           {/*<Form.Item className="collection-create-form_last-form-item">*/}
           {/*  {getFieldDecorator('modifier', {*/}

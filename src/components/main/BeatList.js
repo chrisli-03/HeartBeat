@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Icon } from 'antd'
 import BeatModal from './BeatModal'
 
-const BeatList = ({ beats, addBeat }) => {
+const BeatList = ({ beats, addBeat, editBeat }) => {
   const [visible, setVisible] = useState(false)
   const [formRef, setFormRef] = useState(null)
   const [selectedBeat, setSelectedBeat] = useState(null)
@@ -26,7 +26,8 @@ const BeatList = ({ beats, addBeat }) => {
       }
 
       console.log('Received values of form: ', values)
-      addBeat(values)
+      if (!selectedBeat) addBeat(values)
+      else editBeat({ prevBeat: selectedBeat, beat: values })
       form.resetFields()
       changeModel(false)
     })
@@ -42,7 +43,7 @@ const BeatList = ({ beats, addBeat }) => {
         beat={selectedBeat}
       />
       {beats.map((beat, i) => (
-        <div className="box" key={i} onClick={() => { setSelectedBeat(beat); changeModel(true) }}>{beat.beatName}</div>
+        <Button className="box" key={i} onClick={() => { setSelectedBeat(beat); changeModel(true) }}>{beat.beatName}</Button>
       ))}
       <Button className="box add" onClick={() => { setSelectedBeat(null); changeModel(true) }}>
         <Icon type="form" />
