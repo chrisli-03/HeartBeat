@@ -26,7 +26,7 @@ const BeatModal = Form.create({ name: 'form_in_modal' })(
       <Modal
         visible={visible}
         title={`${create ? 'New' : 'Edit'} Beat`}
-        okText={create ? 'Create' : 'Edit'}
+        onCancel={onCancel}
         footer={footer}
       >
         <Form layout="vertical">

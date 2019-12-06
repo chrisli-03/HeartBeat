@@ -39,7 +39,7 @@ const BeatList = ({ beats, addBeat, editBeat, deleteBeat }) => {
       <BeatModal
         ref={measuredRef}
         visible={visible}
-        onCancel={() => changeModel(false)}
+        onCancel={() => { formRef.resetFields(); changeModel(false) }}
         onCreate={handleCreate}
         onDelete={() => { deleteBeat(selectedBeat); changeModel(false) }}
         beat={selectedBeat}
