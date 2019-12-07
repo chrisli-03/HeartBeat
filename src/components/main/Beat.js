@@ -35,10 +35,10 @@ const Beat = ({ beat }) => {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  })
 
   return (
-    <div className="beat" style={{ 'border-color': color }}>
+    <div className="beat" style={{ borderColor: color }}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
         <polyline
           className={ `beatLine ${statusClass[beatStatus]}` }

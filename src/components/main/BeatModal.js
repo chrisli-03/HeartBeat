@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Input, Button, InputNumber, Radio } from 'antd'
+import { Modal, Form, Input, Button } from 'antd'
 import PropTypes from 'prop-types'
 
 const BeatModal = Form.create({ name: 'form_in_modal' })(

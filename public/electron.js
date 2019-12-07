@@ -1,11 +1,12 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu, Tray} = require('electron')
 const path = require('path')
 const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let tray = null
 
 function createWindow () {
   // Create the browser window.
@@ -29,6 +30,12 @@ function createWindow () {
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 
+  // Minimize to tray instead of closing
+  mainWindow.on('minimize', function (event) {
+    event.preventDefault()
+    mainWindow.hide()
+  })
+
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -36,6 +43,24 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  tray = new Tray(path.join(__dirname, './logo22.png'))
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App',
+      click: () => {
+        mainWindow.show()
+      }
+    },
+    {
+      label: 'Quit',
+      click:  () => {
+        app.isQuiting = true
+        app.quit()
+      } }
+  ])
+  tray.setToolTip('This is my application.')
+  tray.setContextMenu(contextMenu)
 }
 
 // This method will be called when Electron has finished
