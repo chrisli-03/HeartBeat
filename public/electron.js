@@ -2,28 +2,24 @@
 const {app, BrowserWindow, Menu, Tray} = require('electron')
 const path = require('path')
 const url = require('url')
+const Store = require('electron-store')
+const store = new Store()
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-let childWindow
+let childWindows = []
 let tray = null
 
 function createWindow () {
-  childWindow = new BrowserWindow({
-    width: 200,
-    height: 100,
-    // frame: false
-  })
-  childWindow.setAlwaysOnTop(true)
-
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     icon: __dirname + './favicon.png',
     webPreferences: {
-      webSecurity: false
+      webSecurity: false,
+      nodeIntegration: true
     }
   })
 
@@ -41,7 +37,23 @@ function createWindow () {
   // Minimize to tray instead of closing
   mainWindow.on('minimize', function (event) {
     event.preventDefault()
+    store.get('beats').forEach((beat, i) => {
+      childWindows.push(new BrowserWindow({
+        width: 200,
+        height: 100,
+        x: 0,
+        y: i * 100,
+        frame: false
+      }).setAlwaysOnTop(true))
+    })
     mainWindow.hide()
+  })
+
+  // Restore from minimize
+  mainWindow.on('restore', function (event) {
+    while (childWindows.length > 0) {
+      childWindows.pop().destroy()
+    }
   })
 
   // Emitted when the window is closed.

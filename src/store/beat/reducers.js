@@ -1,6 +1,8 @@
 import { ADD_BEAT, EDIT_BEAT, DELETE_BEAT } from './actions.js'
+const Store = window.require('electron-store')
+const store = new Store()
 
-export function beatReducers(state = [], action) {
+export function beatReducers(state = store.get('beats') || [], action) {
   switch(action.type) {
     case ADD_BEAT:
       return [

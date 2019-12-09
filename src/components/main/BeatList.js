@@ -1,8 +1,10 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Icon } from 'antd'
 import BeatModal from './BeatModal'
 import Beat from './Beat'
+const Store = window.require('electron-store')
+const store = new Store()
 
 const BeatList = ({ beats, addBeat, editBeat, deleteBeat }) => {
   const [visible, setVisible] = useState(false)
@@ -33,6 +35,10 @@ const BeatList = ({ beats, addBeat, editBeat, deleteBeat }) => {
       changeModel(false)
     })
   }
+
+  useEffect(() => {
+    store.set({ beats })
+  }, [beats])
 
   return (
     <div className="main">
