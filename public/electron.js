@@ -6,9 +6,17 @@ const url = require('url')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let childWindow
 let tray = null
 
 function createWindow () {
+  childWindow = new BrowserWindow({
+    width: 200,
+    height: 100,
+    // frame: false
+  })
+  childWindow.setAlwaysOnTop(true)
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -54,13 +62,17 @@ function createWindow () {
     },
     {
       label: 'Quit',
-      click:  () => {
+      click: () => {
         app.isQuiting = true
         app.quit()
-      } }
+      }
+    }
   ])
   tray.setToolTip('This is my application.')
   tray.setContextMenu(contextMenu)
+  tray.addListener('double-click', () => {
+    mainWindow.show()
+  })
 }
 
 // This method will be called when Electron has finished
