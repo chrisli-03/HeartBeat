@@ -11,3 +11,4 @@
     })
     then use 'window.require' instead of 'import' or 'require' to import 'electron-store'
     const Store = window.require('electron-store')
+    but browser version no longer works

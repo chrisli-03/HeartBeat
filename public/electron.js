@@ -28,7 +28,7 @@ function createWindow () {
     pathname: path.join(__dirname, '/../build/index.html'),
     protocol: 'file:',
     slashes: true
-  });
+  })
   mainWindow.loadURL(startUrl);
 
   // Open the DevTools.
@@ -38,13 +38,25 @@ function createWindow () {
   mainWindow.on('minimize', function (event) {
     event.preventDefault()
     store.get('beats').forEach((beat, i) => {
-      childWindows.push(new BrowserWindow({
+      const child = new BrowserWindow({
         width: 200,
         height: 100,
         x: 0,
         y: i * 100,
-        frame: false
-      }).setAlwaysOnTop(true))
+        frame: false,
+        webPreferences: {
+          webSecurity: false,
+          nodeIntegration: true
+        }
+      })
+      child.setAlwaysOnTop(true)
+      const startUrl = process.env.ELECTRON_START_URL || url.format({
+        pathname: path.join(__dirname, '/../build/index.html?ip=' + beat.ip),
+        protocol: 'file:',
+        slashes: true
+      })
+      child.loadURL(startUrl)
+      childWindows.push(child)
     })
     mainWindow.hide()
   })

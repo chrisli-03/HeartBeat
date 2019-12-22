@@ -7,9 +7,11 @@ import {
 } from 'react-router-dom'
 import './App.css'
 import BeatList from './containers/main/BeatList'
+import Beat from './components/single/Beat'
 import { Menu, Icon } from 'antd'
 
-const App = () => {
+const App = (location) => {
+  console.log(location)
   const [current, setCurrent] = useState('1')
   const [width, setWidth] = useState(50)
 
@@ -38,8 +40,11 @@ const App = () => {
         </Menu>
         <section className="body">
           <Switch>
-            <Route path="/">
+            <Route path="/" exact>
               <BeatList />
+            </Route>
+            <Route path="/:ip">
+              <Beat />
             </Route>
           </Switch>
         </section>

@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from "react-router-dom"
+const Store = window.require('electron-store')
+const store = new Store()
 
-const Beat = ({ beat, location }) => {
+const Beat = () => {
   const [beatStatus, setBeatStatus] = useState(0)
   const [color, setColor] = useState('red')
   const statusClass = ['', 'right', 'no-animation']
+  const { ip } = useParams()
+  const beat = store.get('beats').filter(n => n.ip === ip)[0]
 
   useEffect(() => {
     let prevCompleted = true
